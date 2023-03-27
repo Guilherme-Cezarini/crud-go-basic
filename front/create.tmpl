@@ -1,0 +1,58 @@
+{{ define "create" }}
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Create Users</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <nav class="nav justify-content-center">
+      <a class="nav-link active" href="/">Home</a>
+      <a class="nav-link" href="/create">Create</a>
+    </nav>
+  </head>
+  <body>
+    <div class="container">
+        <div class="card">
+          {{if .E }}
+            <div class="alert alert-danger" role="alert">
+              This is a danger alert—check it out!
+            </div>
+          {{ end }}
+            <div class="card-header">
+                Users
+            </div>
+            
+            <div class="card-body">
+                <form method="post" action="/insert">
+                    <div class="form-group">
+                      <label for="">Name:</label>
+                      <input type="text"
+                        class="form-control" name="name" id="name" aria-describedby="helpId" placeholder="Name.." value="">
+                      <small id="helpId" class="form-text text-muted">User name</small>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Email</label>
+                      <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelpId" placeholder="Email..." value="">
+                      <small id="emailHelpId" class="form-text text-muted">User email</small>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Password</label>
+                      <input type="text" class="form-control" name="password" id="password" aria-describedby="emailHelpId" placeholder="Password..." value="">
+                      <small id="emailHelpId" class="form-text text-muted">User password</small>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="submit" class="btn btn-danger">Cancel</button>
+
+                </form>
+            </div>
+            
+        </div>
+    
+    </div>
+  </body>
+</html>
+{{ end }}
