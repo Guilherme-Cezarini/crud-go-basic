@@ -33,6 +33,10 @@ func Index(w http.ResponseWriter, r *http.Request) {
 
 		DB := conectionDB()
 		selectRecord, err := DB.Query("SELECT `passaword` FROM `users` WHERE `email` = ? LIMIT 1", email)
+		if err != nil {
+			front.ExecuteTemplate(w, "index", "Error in credentials.")
+			return
+		}
 		selectRecord.Scan()
 		for selectRecord.Next() {
 			var password string
