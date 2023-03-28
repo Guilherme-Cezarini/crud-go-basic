@@ -3,6 +3,7 @@ import(
 	"fmt"
 	"database/sql"
 	"net/http"
+	"os"
 	"text/template"
 	"crypto/md5"
 	"encoding/hex"
@@ -19,9 +20,9 @@ var front = template.Must(template.ParseGlob("front/*"))
 
 func conectionDB() (conection *sql.DB) {
 	Driver := "mysql"
-	User := "root"
-	Password := "Gu1n0m0@"
-	Database := "go-crud"
+	User := os.Getenv("DB_USER")
+	Password := os.Getenv("DB_PASSWORD")
+	Database := os.Getenv("DB_DATABASE")
 
 	con, err := sql.Open(Driver, User+":"+Password+"@tcp(127.0.0.1)/"+Database)
 	if err != nil {
@@ -33,6 +34,7 @@ func conectionDB() (conection *sql.DB) {
 }
 
 func Create(w http.ResponseWriter, r *http.Request) {
+	SessionHealthCheck(w,r)
 	if r.Method == "POST" {
 		v := validator.New()
 		name := r.FormValue("name")
@@ -69,6 +71,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 
 
 func Delete(w http.ResponseWriter, r *http.Request) {
+	SessionHealthCheck(w,r)
 	userId := r.URL.Query().Get("id")
 	models.DeleteUser(userId)
 	
@@ -76,6 +79,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 }
 
 func Update(w http.ResponseWriter, r *http.Request) {
+	SessionHealthCheck(w,r)
 	if r.Method == "POST" {
 		v := validator.New()
 		id := r.FormValue("id")
@@ -109,6 +113,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 
 
 func Edit(w http.ResponseWriter, r *http.Request) {
+	SessionHealthCheck(w,r)
 	userId := r.URL.Query().Get("id")
 	DB := conectionDB()
 	selectRecord, err := DB.Query("SELECT * FROM `users` WHERE `id` = ?", userId)
@@ -136,7 +141,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 }
 
 func List(w http.ResponseWriter, r *http.Request) {
-
+	SessionHealthCheck(w,r)
 	DB := conectionDB()
 	records, err := DB.Query("SELECT * FROM `users`")
 	if err != nil {

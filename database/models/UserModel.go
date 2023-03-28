@@ -4,8 +4,7 @@ import(
 	"database/sql"
 	"crypto/md5"
 	"encoding/hex"
-
-
+	"os"
 )
 
 type User struct {
@@ -18,9 +17,9 @@ type User struct {
 
 func conectionDB() (conection *sql.DB) {
 	Driver := "mysql"
-	User := "root"
-	Password := "Gu1n0m0@"
-	Database := "go-crud"
+	User := os.Getenv("DB_USER")
+	Password := os.Getenv("DB_PASSWORD")
+	Database := os.Getenv("DB_DATABASE")
 
 	con, err := sql.Open(Driver, User+":"+Password+"@tcp(127.0.0.1)/"+Database)
 	if err != nil {
