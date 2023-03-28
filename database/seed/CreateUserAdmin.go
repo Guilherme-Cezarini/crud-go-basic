@@ -4,8 +4,8 @@ import(
 	"os"
 	"crypto/md5"
 	"encoding/hex"
-	"fmt"
 	"database/sql"
+	"fmt"
 
 
 )
@@ -15,7 +15,6 @@ func conectionDB() (conection *sql.DB) {
 	User := os.Getenv("DB_USER")
 	Password := os.Getenv("DB_PASSWORD")
 	Database := os.Getenv("DB_DATABASE")
-	fmt.Println(User + " - " + Password + " - " + Database)
 
 	con, err := sql.Open(Driver, User+":"+Password+"@tcp(127.0.0.1)/"+Database)
 	if err != nil {
@@ -45,12 +44,13 @@ func CreateUserAdmin() {
 
 	
 	if len(count) == 0 {
-		var password string
+		var passwordAdmin string
 		hash := md5.New()
 		defer hash.Reset()
 		hash.Write([]byte(os.Getenv("ADMIN_PASSWORD")))
-		password = hex.EncodeToString(hash.Sum(nil))
-		models.InsertUser(os.Getenv("ADMIN_NAME"), os.Getenv("ADMIN_EMAIL"), password, os.Getenv("ADMIN_AGE"))
+		passwordAdmin = hex.EncodeToString(hash.Sum(nil))
+		models.InsertUser(os.Getenv("ADMIN_NAME"), os.Getenv("ADMIN_EMAIL"), passwordAdmin, os.Getenv("ADMIN_AGE"))
+		fmt.Println("Admin created.")
 	}
 
 	
