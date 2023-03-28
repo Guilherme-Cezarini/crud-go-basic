@@ -4,15 +4,17 @@ import (
 	"fmt"
 	"net/http"
 	"sistema/controllers"
+	"sistema/database/seed"
 	"github.com/joho/godotenv"
 )
 
 func main() {
-
 	err := godotenv.Load()
     if err != nil {
         fmt.Println("err loading env")
     }
+
+	seed.CreateUserAdmin()
 
 
 	http.HandleFunc("/", controllers.Index)

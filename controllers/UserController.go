@@ -23,6 +23,7 @@ func conectionDB() (conection *sql.DB) {
 	User := os.Getenv("DB_USER")
 	Password := os.Getenv("DB_PASSWORD")
 	Database := os.Getenv("DB_DATABASE")
+	fmt.Println(User + " - " + Password + " - " + Database)
 
 	con, err := sql.Open(Driver, User+":"+Password+"@tcp(127.0.0.1)/"+Database)
 	if err != nil {

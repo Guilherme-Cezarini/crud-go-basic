@@ -5,6 +5,7 @@ import(
 	"crypto/md5"
 	"encoding/hex"
 	"os"
+	"fmt"
 )
 
 type User struct {
@@ -20,6 +21,7 @@ func conectionDB() (conection *sql.DB) {
 	User := os.Getenv("DB_USER")
 	Password := os.Getenv("DB_PASSWORD")
 	Database := os.Getenv("DB_DATABASE")
+	fmt.Println(User + " - " + Password + " - " + Database)
 
 	con, err := sql.Open(Driver, User+":"+Password+"@tcp(127.0.0.1)/"+Database)
 	if err != nil {
@@ -55,7 +57,7 @@ func UpdateRecordWithPassword(id string, name string, email string, password str
 
 func InsertUser(name string, email string, password string, age string){
 	DB := conectionDB()
-	insertRegistros, err := DB.Prepare("INSERT INTO `users` (name,age,email,passaword) VALUES (?, ?, ? ,?)")
+	insertRegistros, err := DB.Prepare("INSERT IGNORE INTO `users` (name,age,email,passaword) VALUES (?, ?, ? ,?)")
 	if err != nil {
 		panic(err.Error())
 	}
