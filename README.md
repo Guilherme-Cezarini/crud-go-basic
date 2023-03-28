@@ -2,7 +2,7 @@
 
 SETUP
 
-DATABASE 
+DATABASE MySql
 
 CREATE TABLE users ( id int NOT NULL AUTO_INCREMENT, name varchar(150), age varchar(150), email varchar(255), passaword varchar(255), PRIMARY KEY (id)); 
 
