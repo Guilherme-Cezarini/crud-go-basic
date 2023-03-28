@@ -1,0 +1,55 @@
+
+{{ define "list" }}
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>List Users</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <nav class="nav justify-content-center">
+            <a class="nav-link active" href="/">Home</a>
+            <a class="nav-link" href="/create">Create</a>
+        </nav>   
+    </head>
+  <body>
+    <body>
+        <div class="container">
+            <a name="Create" id="" class="btn btn-primary" href="/create" role="button" style="margin-bottom: 10px; margin-top: 5px;">Create</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+        
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ range. }}
+                        <tr>
+                            <td scope="row">{{ .Id}}</td>
+                            <td>{{ .Name}}</td>
+                            <td>{{ .Age}}</td>
+                            <td>{{ .Email}}</td>
+                            <td>
+                                <a name="delete" id="delete" class="btn btn-warning" href="/edit?id={{.Id}}" role="button">Edit</a> |
+                                <a name="delete" id="delete" class="btn btn-danger" href="/delete?id={{.Id}}" role="button">Delete</a>
+                                
+                            </td>
+            
+                        </tr>
+                    {{ end }}
+                </tbody>
+            </table>  
+        </div>
+    </body>
+    
+  </body>
+</html>
+{{ end }}

@@ -3,7 +3,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>List Users</title>
+        <title>Singin</title>
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,33 +18,30 @@
   <body>
     <body>
         <div class="container">
-            <a name="Create" id="" class="btn btn-primary" href="/create" role="button" style="margin-bottom: 10px; margin-top: 5px;">Create</a>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Actions</th>
-        
-                    </tr>
-                </thead>
-                <tbody>
-                    {{ range. }}
-                        <tr>
-                            <td scope="row">{{ .Id}}</td>
-                            <td>{{ .Name}}</td>
-                            <td>{{ .Email}}</td>
-                            <td>
-                                <a name="delete" id="delete" class="btn btn-warning" href="/edit?id={{.Id}}" role="button">Edit</a> |
-                                <a name="delete" id="delete" class="btn btn-danger" href="/delete?id={{.Id}}" role="button">Delete</a>
-                                
-                            </td>
-            
-                        </tr>
-                    {{ end }}
-                </tbody>
-            </table>  
+           
+            <div class="card-body">
+                {{if . }}
+                    <div class="alert alert-danger" role="alert">
+                        {{ . }}
+                    </div>
+                {{ end }}
+                <form method="post" action="/">
+                    <div class="form-group">
+                      <label for="">Email:</label>
+                      <input type="text"
+                        class="form-control" name="email" id="email" aria-describedby="helpId" placeholder="Email" value="">
+                      <small id="helpId" class="form-text text-muted">User email</small>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Passowrd:</label>
+                      <input type="text"
+                        class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="Passowrd" value="">
+                      <small id="helpId" class="form-text text-muted">User password</small>
+                    </div>
+                    <button type="submit" class="btn btn-success">Login</button>
+
+                </form>
+            </div>
         </div>
     </body>
     
