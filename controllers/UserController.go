@@ -88,17 +88,32 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		password := r.FormValue("password")
 		age := r.FormValue("age")
 
+		if len(password) == 0 {
+			DB := conectionDB()
+			selectRecord, err := DB.Query("SELECT `passaword` FROM `users` WHERE `email` = ? LIMIT 1", email)
+			for selectRecord.Next() {
+				var DBpassword string
+				err = selectRecord.Scan(&DBpassword)
+				if err != nil {
+					panic(err.Error())
+				}
+				password = DBpassword
+			}
+		}
+
 		user := models.User{
 			Name:     name,
 			Age: 	  age,
 			Email:    email,
 			Password: password,
 		}
+
 		fmt.Println(user)
 		validationError := v.Struct(user)
 		if validationError != nil {
 			fmt.Println(validationError)
 			http.Redirect(w, r, "/list", 301)
+			return
 		}
 
 		if len(password) == 0 {
@@ -108,6 +123,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		}
 
 		http.Redirect(w, r, "/list", 301)
+		return
 	}
 }
 
